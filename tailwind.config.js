@@ -11,6 +11,9 @@ module.exports = {
     darkMode: true,
     theme: {
         extend: {
+            colors: {
+                primary: "#1e570c",
+            },
             fontFamily: {
                 sans: ["Inter", ...defaultTheme.fontFamily.sans],
             },
