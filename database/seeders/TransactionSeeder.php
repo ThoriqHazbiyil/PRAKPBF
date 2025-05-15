@@ -14,6 +14,20 @@ class TransactionSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $transactions = [
+            [
+
+                'invoice' => 'INV-001',
+                'total' => 20000000,
+                'status' => 'pending',
+                'user_id' => 2,
+                'product_id' => 1,
+                'date_pay' => now(),
+            ]
+        ];
+
+        foreach ($transactions as $transaction) {
+            \App\Models\Transaction::create($transaction);
+        }
     }
 }

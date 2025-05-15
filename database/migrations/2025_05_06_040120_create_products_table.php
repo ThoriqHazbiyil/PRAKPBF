@@ -18,13 +18,13 @@ return new class extends Migration
             $table->string('name');
             $table->integer('weight');
             $table->integer('price');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('description');
             $table->string('category');
             $table->string('color');
             $table->boolean('status');
             $table->tinyInteger('age');
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }

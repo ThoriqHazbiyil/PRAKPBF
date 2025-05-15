@@ -14,6 +14,21 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $products = [
+            [
+                'name' => 'Sapi Hitam Legam',
+                'weight' => 1000,
+                'price' => 20000000,
+                'description' => 'Sapi Hitam Legam',
+                'category' => 'sapi',
+                'color' => 'Hitam',
+                'status' => true,
+                'age' => 15
+            ]
+        ];
+
+        foreach ($products as $product) {
+            \App\Models\Product::create($product);
+        }
     }
 }

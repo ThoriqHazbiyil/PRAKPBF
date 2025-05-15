@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('invoice');
+            $table->integer('total');
+            $table->string('status');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('product_id')->constrained('products');
+            $table->date('date_pay')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

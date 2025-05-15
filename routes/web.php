@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TransaksiController;
 use App\Http\Controllers\CatalogProductController;
+use App\Http\Controllers\HistoryTransactionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransactionController;
 use App\Models\Carousel;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +32,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('admin/dashboard', DashboardController::class);
     Route::resource('admin/carousel', CarouselController::class)->names('admin.carousel');
     Route::resource('admin/product', ProductController::class)->names('admin.product');
-    Route::resource('admin/transaction', TransaksiController::class);
+    Route::resource('admin/transaction', TransaksiController::class)->names('admin.transaction');
+});
+
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/transactions/{transaction}/pay', [TransactionController::class, 'pay']);
+    Route::post('/transactions/create-and-pay', [TransactionController::class, 'createAndPay']);
+    Route::resource('riwayat-transaksi', HistoryTransactionController::class)->names('history-transaction');
 });
 require __DIR__ . '/auth.php';

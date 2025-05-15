@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,7 +17,11 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.index');
+        $totalUser = User::where('role', 'user')->count();
+        $totalProduct = Product::count();
+        $totalProfit = Transaction::where('status', 'lunas')->sum('total');
+        $totalTransaction = Transaction::count();
+        return view('admin.dashboard.index', compact('totalUser', 'totalProduct', 'totalProfit', 'totalTransaction'));
     }
 
     /**

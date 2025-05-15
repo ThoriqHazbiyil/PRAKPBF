@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
-class TransaksiController extends Controller
+class HistoryTransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,10 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::with('user', 'product')->get();
-        return view('admin.transaction.index', compact('transactions'));;
+        $user = auth()->user();
+        $transactions = Transaction::with('user', 'product')->where('user_id', $user->id)->get();
+
+        return view('history-transaction.index', compact('transactions'));
     }
 
     /**
@@ -59,9 +60,9 @@ class TransaksiController extends Controller
      */
     public function edit($id)
     {
-        $transaction = Transaction::with('user', 'product')->findOrFail($id);
-        return view('admin.transaction.edit', compact('transaction'));
+        //
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -71,23 +72,8 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'status' => 'required|in:pending,lunas',
-        ]);
-
-        $transaction = Transaction::findOrFail($id);
-        $transaction->status = $request->status;
-
-        // Jika status lunas, isi tanggal bayar
-        if ($request->status === 'lunas') {
-            $transaction->date_pay = now();
-        }
-
-        $transaction->save();
-
-        return redirect()->route('admin.transaction.index')->with('success', 'Status transaksi berhasil diubah.');
+        //
     }
-
 
     /**
      * Remove the specified resource from storage.

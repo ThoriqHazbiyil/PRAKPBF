@@ -136,6 +136,7 @@ class ProductController extends Controller
     // Menghapus produk
     public function destroy($id)
     {
+
         $product = Product::findOrFail($id);
 
         // Hapus gambar produk jika ada
